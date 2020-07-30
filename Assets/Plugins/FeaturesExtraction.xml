@@ -1,0 +1,1039 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FeaturesExtraction</name>
+    </assembly>
+    <members>
+        <member name="T:FeaturesExtraction.ProgramOutput">
+            <summary>
+            Static class to provide final methods to be called on input file.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.ProgramOutput.AddClapsOnRhytm(System.String)">
+            <summary>
+            Computes beat times in inFile, add clap sound to computed times and saves to file.
+            </summary>
+            <param name="inputFile">MP3 file</param>
+        </member>
+        <member name="M:FeaturesExtraction.ProgramOutput.ExtractFeatures(System.String,System.Boolean)">
+            <summary>
+            Extracts features from inputFile and saves them to text file.
+            </summary>
+            <param name="inputFile">MP3 file</param>
+            <param name="comments">If comments should be included in outfile.</param>
+        </member>
+        <member name="M:FeaturesExtraction.ProgramOutput.ExtractFeaturesAndSaveToJSON(System.String,System.String)">
+            <summary>
+            Extracts features from input file and saves them to JSON file.
+            </summary>
+            <param name="inputFile"></param>
+            <param name="outFile"></param>
+        </member>
+        <member name="M:FeaturesExtraction.ProgramOutput.ExtractFeaturesFromMP3InFolder(System.String)">
+            <summary>
+            Extracts and saves to JSON features from each mp3-file in folder.
+            </summary>
+            <param name="folder">Folder to process.</param>
+        </member>
+        <member name="T:FeaturesExtraction.CommandLineParsing">
+            <summary>
+            Static class to simplify handling arguments from command line.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.CommandLineParsing.Parser(System.String[])">
+            <summary>
+            Method to parse and execute command-line arguments.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:FeaturesExtraction.CommandLineParsing.Options">
+            <summary>
+            Class to describe possible parameters and commands in console.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.CommandLineParsing.RunOptions(FeaturesExtraction.CommandLineParsing.Options)">
+            <summary>
+            To be called after successful parsing.
+            </summary>
+            <param name="opts"></param>
+        </member>
+        <member name="M:FeaturesExtraction.CommandLineParsing.HandleParseError(System.Collections.Generic.IEnumerable{CommandLine.Error})">
+            <summary>
+            To be called after unsuccessful parsing.
+            </summary>
+            <param name="errs"></param>
+        </member>
+        <member name="M:FeaturesExtraction.Examples.ComputeGlobalTempoEstimate">
+            <summary>
+            computes envelope and tempo estimation from file
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Examples.SineWave">
+            <summary>
+            Creates sine wave and plays it.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Examples.MelMappingTriangles">
+            <summary>
+            Writes values from MEL mapping matrix to console.
+            Used to plot mapping triangles.
+            </summary>
+        </member>
+        <member name="T:FeaturesExtraction.Features">
+            <summary>
+            Class to manage individual features.
+            Provides discrete signal to feature classes and processes them.
+            After processing, data can be obtained.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Features.KeyTonality">
+            <summary>
+            KeyTonality class to provide tonality vector and key of the audio input.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Features.Energy">
+            <summary>
+            Energy class to provide information about average energy and energy deviation during audio input.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Features.Rhytm">
+            <summary>
+            Beat tracking class to provide times of beats and other information about tempo.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Features.Harmonics">
+            <summary>
+            Harmonics class to provide information about harmony in audio input.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Features.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Constructs and processes signal in classes.
+            </summary>
+            <param name="signal"></param>
+        </member>
+        <member name="M:FeaturesExtraction.Features.Data(System.Boolean)">
+            <summary>
+            Returns features info.
+            </summary>
+            <param name="withComments">If there should be comments to be more readable.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Features.TimeBeatsData(System.Boolean)">
+            <summary>
+            Returns times of beats in seconds.
+            </summary>
+            <param name="withComments">If there should be comments to be more readable.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Features.TimeBeats">
+            <summary>
+            Returns times of beats (in seconds).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.FeaturesData">
+            <summary>
+            FeaturesData class, mainly for serialization to JSON.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.Key">
+            <summary>
+            Key of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.TonalityVector">
+            <summary>
+            Tonality vector of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.AverageEnergy">
+            <summary>
+            Average energy of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.EnergyDeviation">
+            <summary>
+            Standard deviation of energy of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.TempoBPM">
+            <summary>
+            Overall tempo in beats-per-minutes of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.TempoDeviation">
+            <summary>
+            Standard deviation of beat intervals of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.HarmonicVector">
+            <summary>
+            Vector of harmonics of the input audio.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.FeaturesData.HarmonicDeviation">
+            <summary>
+            Standard deviation of individual harmonics through time in the input audio.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.FeaturesData.DeserializeJSON(System.String)">
+            <summary>
+            Deserialize JSON file to FeaturesData class.
+            </summary>
+            <param name="jsonFile">JSON file to deserialize</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.FeaturesDataExtension">
+            <summary>
+            Extension methods class.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.FeaturesDataExtension.GetFeaturesData(FeaturesExtraction.Features)">
+            <summary>
+            Returns FeaturesData object filled with values.
+            </summary>
+            <param name="features"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.Energy">
+            <summary>
+            Computes average energy and its standard deviation from provided discrete signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Energy.AverageEnergy">
+            <summary>
+            Average energy of the signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Energy.StandardDeviation">
+            <summary>
+            Standard deviation of energy of the signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Energy.Processed">
+            <summary>
+            Indicates if computation is processed.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Energy.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="signal"></param>
+        </member>
+        <member name="M:FeaturesExtraction.Energy.ProcessEnergy">
+            <summary>
+            Computes average energy and standard deviation.
+            </summary>
+        </member>
+        <member name="T:FeaturesExtraction.Harmonics">
+            <summary>
+            Class that computes harmonic distribution in provided audio signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.Processed">
+            <summary>
+            Indicates if Harmonics class is processed.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.StftAbsoluteValue">
+            <summary>
+            List contains float arrays which contains absolute values of complex numbers produced by Short-time fourier transform.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.HarmonicDistribution">
+            <summary>
+            List contains float arrays which describe harmonic distribution of frequencies in corresponding frame of STFT.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.NumberOfHarmonics">
+            <summary>
+            Maximum number of harmonics considered.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.AverageFrequencyHarmonicDistribution">
+            <summary>
+            Average frequency harmonic distribution from individuall frames of STFT. 
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.Harmonics.StandardDeviationOfFrequencyHarmonicDistribution">
+            <summary>
+            Standard deviation of harmonic distribution from individuall frames of STFT.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Harmonics.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="signal"></param>
+        </member>
+        <member name="M:FeaturesExtraction.Harmonics.ProcessHarmonics">
+            <summary>
+            Computes harmonics.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Harmonics.ComputeStftAbsoluteValue">
+            <summary>
+            Computes STFT and then absolute values of computed complex numbers and stores it to StftAbsoluteValues.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Harmonics.ComputeHarmonicDistribution">
+            <summary>
+            From StftAbsoluteValues computes harmonic distribution in each frame and stores it to HarmonicDistribution.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Harmonics.ComputeAverageAndDeviation">
+            <summary>
+            From HarmonicDistribution computes Average and Standard deviation.
+            </summary>
+        </member>
+        <member name="T:FeaturesExtraction.HarmonicsPostprocessing">
+            <summary>
+            Auxiliary class to provide computational tools.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.HarmonicsPostprocessing.AverageValueAndStandardDeviation(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            From list of vectors computes average vector and standard deviation vector.
+            </summary>
+            <param name="values">List of vectors of the same size.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.HarmonicsPostprocessing.ComputeAverage(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Computes average vector from provided vectors.
+            </summary>
+            <param name="values">List of vectors of the same size.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.HarmonicsPostprocessing.ComputeStandardDeviation(System.Single[],System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Computes standard deviation of vectors from average vector.
+            </summary>
+            <param name="average">Average vector.</param>
+            <param name="values">List of vectors of the same size.</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.OnsetStrengthEnvelope">
+            <summary>
+            Class that computes Onset strength envelope according to https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-beattrack.pdf
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.OnsetStrengthEnvelope.Signal">
+            <summary>
+            Signal to process.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.OnsetStrengthEnvelope.Envelope">
+            <summary>
+            Computed envelope. Computed via ProcessEnvelope().
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.OnsetStrengthEnvelope.EnvelopeSampleRate">
+            <summary>
+            How many values in envelope is in 1 second of input signal
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.OnsetStrengthEnvelope.Processed">
+            <summary>
+            Indicates if envelope is processed.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Constructor of the class.
+            </summary>
+            <param name="signal">Signal to process.</param>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.ProcessEnvelope">
+            <summary>
+            Void to process envelope from input file. 
+            Follows https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-beattrack.pdf in section 3.1
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.ResampleTo8kHzNWaves">
+            <summary>
+            Reads input signal and return resampled IEEE single floating point signal.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.STFTspectrogram(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Computes spectrogram from resampled 8kHz IEEE single floating point signal.
+            </summary>
+            <param name="resampled8kHzIEEEfloatSignal">signal with 8 kHz samplerate</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.MapSpectrogramTo40MELBands(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Computes 40 Mel bands spectrogram from provided frequency spectrogram.
+            </summary>
+            <param name="spectrogram">spectrogram to map to mel bands</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.ScalarProduct(System.Single[],System.Single[])">
+            <summary>
+            Returns scalar product of 2 vectors of the same length.
+            </summary>
+            <param name="vector1"></param>
+            <param name="vector2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.FirstOrderDifference(System.Collections.Generic.List{System.Single[]},System.Boolean)">
+            <summary>
+            Computes first order difference in matrix collumns.
+            </summary>
+            <param name="matrix"></param>
+            <param name="negativeToZero">If true, then negative values are set to 0</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.SumRowsInMatrix(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Returns sum of all rows in matrix.
+            </summary>
+            <param name="matrix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.NormalizeEnvelope(System.Single[])">
+            <summary>
+            Normalizes vector by dividing each value by standard deviation.
+            </summary>
+            <param name="envelope"></param>
+        </member>
+        <member name="M:FeaturesExtraction.OnsetStrengthEnvelope.StandardDeviation(System.Single[])">
+            <summary>
+            Computes standard deviation from entry.
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.SmoothingFilters">
+            <summary>
+            Class to provide smoothing filters.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.SmoothingFilters.GaussianConvolution(System.Single[],System.Int32)">
+            <summary>
+            Convolutes signal with gaussian filter of requested window length.
+            Applies windows not-overlapping.
+            </summary>
+            <param name="signal">signal to convolute</param>
+            <param name="windowLength">length of filter window</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.FrequencyFilters">
+            <summary>
+            Class to provide frequency filters
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.FrequencyFilters.HighPassFilter(System.Single[],System.Single,System.Single,System.Single)">
+            <summary>
+            Applies high-pass filter on signal.
+            </summary>
+            <param name="signal">Signal to process</param>
+            <param name="sampleRate">Sample rate of the signal</param>
+            <param name="cutOffFrequency">cut-off frequency of the filter</param>
+            <param name="bandwidth">bandwidth of signal in octaves</param>          //extracted from source code of naudio, not sure
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.DBFilters">
+            <summary>
+            Class to provides operations with dB, amplitude and power.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DBFilters.AmplitudeSpectrogramToPowerSpectrogram(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Transforms amplitude spectrogram to power spectrogram (each entry value is squared).
+            </summary>
+            <param name="amplitudeSpectrogram"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.DBFilters.ConvertMelSpectrogramToDB(System.Collections.Generic.List{System.Single[]},System.Boolean,System.Single,System.Single)">
+            <summary>
+            Converts amplitude spectrogram to dB spectrogram.
+            </summary>
+            <param name="spectrogram"></param>
+            <param name="referenceEqualsMaximumValue">If true, then referential value (to computes dB) is maximum squared value of entry</param>
+            <param name="amin">minimal value</param>
+            <param name="top_db">if greater than 0, then minimal value of dB is set to maximal value minus this</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.MelFilters">
+            <summary>
+            Class to provides filters for MEL conversion
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.MelMappingMatrix(System.Int32,System.Int32,System.Single,System.Single,System.Boolean,FeaturesExtraction.MelFilters.MelFormulas)">
+            <summary>
+            Computes MEL mapping matrix.
+            </summary>
+            <param name="numberOfMelBins"></param>
+            <param name="lengthOfVectors">number of samples in each frame of spectrogram.</param>
+            <param name="maxFrequency">maximum frequency of spectrogram to be applied to</param>
+            <param name="minFrequency">minimum frequency of spectrogram to be applied to</param>
+            <param name="normalizedBandwidth">If true, than triangles' area equals 1.</param>
+            <param name="formulaToUse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.TriangleMapping(System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Returns tringle-shape filter.
+            </summary>
+            <param name="arrayLength"></param>
+            <param name="startingPosition">left triangle vertex</param>
+            <param name="endingPosition">right triangle vertex</param>
+            <param name="normalized">if true, then height of the triangle is set such that area of triangle equals 1.
+            Otherwise peak value is 1.</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.MelFilters.MelFormulas">
+            <summary>
+            Formulas to use in computation of Mels.
+            
+            The mel scale is a quasi-logarithmic function of acoustic frequency designed such that perceptually
+            similar pitch intervals (e.g. octaves) appear equal in width over the full hearing range.
+            
+            Because the definition of the mel scale is conditioned by a finite number of subjective psychoaoustical
+            experiments, several implementations coexist in the audio signal processing literature.
+            
+            In Slaney implementation, the conversion from Hertz to mel is linear below 1 kHz and logarithmic above 1 kHz.
+            Hidden Markov Toolkit (HTK) implements mel = 2595.0 * log_10(1.0 + frequency / 700.0).
+            </summary>
+        </member>
+        <member name="F:FeaturesExtraction.MelFilters.MelFormulas.SlaneyFormula">
+            <summary>
+            In Slaney implementation, the conversion from Hertz to mel is linear below 1 kHz and logarithmic above 1 kHz.
+            </summary>
+        </member>
+        <member name="F:FeaturesExtraction.MelFilters.MelFormulas.HTKFormula">
+            <summary>
+            Hidden Markov Toolkit (HTK) implements mel = 2595.0 * log_10(1.0 + frequency / 700.0).
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.HzToMel(System.Single,FeaturesExtraction.MelFilters.MelFormulas)">
+            <summary>
+            Computes Mels from Hertz frequency.
+            MATLAB function: https://labrosa.ee.columbia.edu/matlab/rastamat/hz2mel.m
+            Python implementation of MATLAB function: https://librosa.github.io/librosa/_modules/librosa/core/time_frequency.html#hz_to_mel
+            </summary>
+            <param name="frequencyInHertz">Frequency in Hertz.</param>
+            <param name="formulaToUse">[optional argumet] Formula to provide calculation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.HzToMel(System.Single[],FeaturesExtraction.MelFilters.MelFormulas)">
+            <summary>
+            Computes Mels from Hertz frequency.
+            MATLAB function: https://labrosa.ee.columbia.edu/matlab/rastamat/hz2mel.m
+            Python implementation of MATLAB function: https://librosa.github.io/librosa/_modules/librosa/core/time_frequency.html#hz_to_mel
+            </summary>
+            <param name="frequenciesInHertz">Frequencies in Hertz to convert.</param>
+            <param name="formulaToUse">[optional argumet] Formula to provide calculation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.MelToHz(System.Single,FeaturesExtraction.MelFilters.MelFormulas)">
+            <summary>
+            Computes Hertz frequency from mel bins.
+            MATLAB function: https://labrosa.ee.columbia.edu/matlab/rastamat/mel2hz.m
+            Python implementation of MATLAB function: https://librosa.github.io/librosa/_modules/librosa/core/time_frequency.html#mel_to_hz
+            </summary>
+            <param name="mels">Mel bin.</param>
+            <param name="formulaToUse">[optional argument] Formula to provida calculation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.MelToHz(System.Single[],FeaturesExtraction.MelFilters.MelFormulas)">
+            <summary>
+            Computes Hertz frequency from mel bins.
+            MATLAB function: https://labrosa.ee.columbia.edu/matlab/rastamat/mel2hz.m
+            Python implementation of MATLAB function: https://librosa.github.io/librosa/_modules/librosa/core/time_frequency.html#mel_to_hz
+            </summary>
+            <param name="mels">Mel bins.</param>
+            <param name="formulaToUse">[optional argument] Formula to provida calculation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.MelFilters.CepstralCoefficientsInMels(System.Int32,System.Single,System.Single)">
+            <summary>
+            Computes mel values to apply triangle filter to transform Hz spectrogram to Mel spectrogram.
+            First bin starts from result[0], ends at result[2] and has peak at result[1].
+            Second bin starst from result[1], ends at result[3] and has peak at result[2].
+            And so on..
+            </summary>
+            <param name="numberOFBins">Number of requested mel bins.</param>
+            <param name="minimumMel">Minimum mel frequency.</param>
+            <param name="maximumMel">Maximum mel frequency.</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.GlobalTempoEstimate">
+            <summary>
+            Class that computes estimation of global tempo from onset strength envelope
+            According to this paper - https://www.ee.columbia.edu/~dpwe/pubs/Ellis07-beattrack.pdf
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.OnsetStrengthEnvelope">
+            <summary>
+            Onset strength envelope provided.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.SampleRate">
+            <summary>
+            How many samples in onset strength envelope per 1 second.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.MaxLag">
+            <summary>
+            For how big lag we want to compute autocorrelation.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.Processed">
+            <summary>
+            Indicates if Global tempo estimation is processed. 
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.WeightFunctionUsed">
+            <summary>
+            Indicates whether AutoCorrelation is computed with weighting function or not.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.AutoCorrelation">
+            <summary>
+            After processing contains autocorrelation data.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.GlobalTempoEstimate.IdealInterBeatIntervalInSamples">
+            <summary>
+            After processing contains position of highest peak in autocorrelation data.
+            Which represents lag between two envelopes.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.#ctor(System.Single[],System.Single,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="onsetStrengthEnvelope">Onset strength envelope to process.</param>
+            <param name="sampleRate">How many samples in onset strength envelope per 1 second.</param>
+            <param name="weightFunctionUse">If weighting function should be used during computation.</param>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.#ctor(FeaturesExtraction.OnsetStrengthEnvelope,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="envelope">Onset strength envelope class. If not processed then will be processed in constructor.</param>
+            <param name="weightFunctionUse">If weighting function should be used during computation.</param>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.ProcessTempoEstimation">
+            <summary>
+            Computes auto correlation and ideal interbeat interval.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.ComputeIdealInterBeatInterval">
+            <summary>
+            Finds index corresponding to highest peak.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.ComputeAutoCorrelation(System.Boolean)">
+            <summary>
+            Computes autocorrelation and assigns it to public property.
+            </summary>
+            <param name="useWeightingFunction"></param>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.AutoCorrelationWithInterval(System.Int32)">
+            <summary>
+            Computes value of convolution of onset strength envelope with itself delayed by interval.
+            </summary>
+            <param name="numberOfArrayStepsInInterval">How many samples to delay envelope.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.GlobalTempoEstimate.WeightingFunction(System.Int32)">
+            <summary>
+            Computes perceptual weight of tempo interval
+            According to human bias to 120 bpm.
+            </summary>
+            <param name="numberOfArrayStepsInInterval"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.DynamicBeatTracking">
+            <summary>
+            Class that computes actual beats. From discrete signal or from provided OnsetStrengthEnvelope and TempoEstimate. 
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.IdealTempo">
+            <summary>
+            Ideal interbeat interval from GlobalTempoEstimate
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.Alpha">
+            <summary>
+            Coefficient to balance terms in computation.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.Scoring">
+            <summary>
+            Dynamic table to be filled
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.Predestors">
+            <summary>
+            Table of actual preceding beats that gives the best score.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.Beats">
+            <summary>
+            Time (in samples) where beats are.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.AverageBeatInterval">
+            <summary>
+            In samples.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.StandardInterBeatDeviation">
+            <summary>
+            In samples.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.OverallTempoBPM">
+            <summary>
+            In beats per minute.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.SampleRate">
+            <summary>
+            Sample rate of beats.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.DynamicBeatTracking.Processed">
+            <summary>
+            If Dynamic beat tracking is processed.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.InitialSetup">
+            <summary>
+            From *PROCESSED* OnsetStrengthEnvelope and GlobalTempoEstimate initializes arrays and values.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Computes beats from discrete signal. During process computes OnsetStrengthEnvelope and GlobalTempoEstimate classes.
+            </summary>
+            <param name="signal">Discrete signal to derive beats from.</param>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.#ctor(FeaturesExtraction.OnsetStrengthEnvelope,FeaturesExtraction.GlobalTempoEstimate)">
+            <summary>
+            
+            </summary>
+            <param name="envelope">Onset strength envelope. If not processed then will be processed.</param>
+            <param name="tempoEstimate">Global tempo estimate. If not processed, then will be processed.</param>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.ProcessBeats">
+            <summary>
+            Computes beats from provided envelope and tempo estimation. 
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.ComputeTempoAndDeviation">
+            <summary>
+            Computes average beat interval, standard deviation and Beats-Per-Minute tempo.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.ConsistencyErrorFunction(System.Int32,System.Int32)">
+            <summary>
+            Computes error function of interval between beats.
+            </summary>
+            <param name="beatInterval">Actual interval between this and last beat.</param>
+            <param name="idealInterval">Ideal interval between beats.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.FindBestPrecedingScore(System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Finds maximum previous score corrected by Error function of difference between ideal interval and actual interval. 
+            </summary>
+            <param name="actualTime">Time where you are calculating score.</param>
+            <param name="lowerRangeOfSearch"></param>
+            <param name="upperRangeOfSearch"></param>
+            <param name="predestor">Returns index of preceding beat time that gives the best score.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.ComputeScoring">
+            <summary>
+            Computes best scoring for each time and also tracks route.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.LowerRange(System.Int32)">
+            <summary>
+            Returns lower range of considered time-window according to growing penalty when far from estimated tempo.
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.UpperRange(System.Int32)">
+            <summary>
+            Returns upper range of considered time-window according to growing penalty when far from estimated tempo.
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.ComputeBeats">
+            <summary>
+            Computes beats from scoring and predestors.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.DynamicBeatTracking.TimeBeats">
+            <summary>
+            Returns times of beats (in seconds).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.BeatsProcessing">
+            <summary>
+            Static class to get information from beats.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.BeatsProcessing.StandardInterBeatDeviation(System.Int32[],System.Single@,System.Single@)">
+            <summary>
+            Computes average beat interval and standard deviation.
+            </summary>
+            <param name="beats"></param>
+            <param name="averageBeatInterval"></param>
+            <param name="standardDeviation"></param>
+        </member>
+        <member name="T:FeaturesExtraction.KeyTonality">
+            <summary>
+            Computes Key and Tonality from DiscreteSignal
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.KeyTonality.Key">
+            <summary>
+            Key of discrete signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.KeyTonality.TonalityVector">
+            <summary>
+            Tonality vector of discrete signal.
+            </summary>
+        </member>
+        <member name="P:FeaturesExtraction.KeyTonality.Processed">
+            <summary>
+            Indicates if computation is processed.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.KeyTonality.#ctor(NWaves.Signals.DiscreteSignal)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="signal"></param>
+        </member>
+        <member name="M:FeaturesExtraction.KeyTonality.ProcessKeyTonality">
+            <summary>
+            Computes key and tonality from provided signal.
+            </summary>
+        </member>
+        <member name="T:FeaturesExtraction.Keys">
+            <summary>
+            Music keys.
+            </summary>
+        </member>
+        <member name="T:FeaturesExtraction.LogFrequencySpectrogramAndChromagram">
+            <summary>
+            Static class to compute:
+            >> log-frequency (pitch) spectrogram from spectrogram
+            >> chromagram
+            >> summed chromagram
+            >> pitch frequencies from pitch number
+            >> note names (pitch names) from pitch numbers
+            
+            based on article https://www.audiolabs-erlangen.de/resources/MIR/FMP/C3/C3S1_SpecLogFreq-Chromagram.html
+            (frequency of pitch and note name only rewritten to C#, pitch spectrogram and chromagram inspired.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.FrequencyOfPitch(System.Double)">
+            <summary>
+            Computes center frequency of MIDI pitch.
+            Reference pitch 69 equals to 440 Hz.
+            </summary>
+            <param name="pitch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.NoteName(System.Int32)">
+            <summary>
+            Returns name of the note (eg. A1, C#3).
+            Reference pitch 69 equals to 440 Hz.
+            </summary>
+            <param name="pitch">Pitch value</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.LogFrequencySpectrogramFromSpectrogram(System.Collections.Generic.List{System.Single[]},System.Single)">
+            <summary>
+            Computes log-frequency spectrogram from linear-frequency spectrogram.
+            Log-frequency axis is measured in pitches.
+            Reference pitch 69 equals to 440 Hz.
+            </summary>
+            <param name="spectrogram">linear-frequency spectrogram</param>
+            <param name="sampleRate">Sample rate of the song.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.SumArrayIndices(System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Computes sum of array values. For indices in (minIndex,maxIndex).
+            </summary>
+            <param name="array"></param>
+            <param name="minIndex">Indices lower bound.</param>
+            <param name="maxIndex">Indices upper bound.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.ChromagramFromLfSpectrogram(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Computes chromagram (bins corresponding to 12 semitones of musical octave) for each frame 
+            in pitch (log-frequency) spectrogram.
+            </summary>
+            <param name="lfSpectrogram">pitch (log-frequency) spectrogram</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.ChromagramFromSpectrogram(System.Collections.Generic.List{System.Single[]},System.Single)">
+            <summary>
+            Computes chromagram (bins corresponding to 12 semitones of musical octave) for each frame 
+            in spectrogram.
+            0 corresponds to C, 1 corresponds to C#, etc...
+            </summary>
+            <param name="spectrogram">spectrogram</param>
+            <param name="sampleRate">Sample rate of the song.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.SummedChromagramFromChromagram(System.Collections.Generic.List{System.Single[]})">
+            <summary>
+            Computes summed chromagram from chromagram.
+            (Summes up all chroma frames to one.)
+            0 corresponds to C, 1 corresponds to C#, etc...
+            </summary>
+            <param name="chromagram"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.LogFrequencySpectrogramAndChromagram.SummedChromagramFromSpectrogram(System.Collections.Generic.List{System.Single[]},System.Single)">
+            <summary>
+            Computes summed chromagram from spectrogram.
+            (Summes up all chroma frames to one.)
+            </summary>
+            <param name="spectrogram">spectrogram</param>
+            <param name="sampleRate">Sample rate of the song.</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.Tonality">
+            <summary>
+            Static class to compute key by tonality score for each key.
+            </summary>
+        </member>
+        <member name="F:FeaturesExtraction.Tonality.majorProfile">
+            <summary>
+            Krumhansl's major key profile vector.
+            Determines distribution of individual notes in key (starting with tonic on first position).
+            </summary>
+        </member>
+        <member name="F:FeaturesExtraction.Tonality.minorProfile">
+            <summary>
+            Krumhansl's minor key profile vector
+            Determines distribution of individual notes in key (starting with tonic on first position).
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Tonality.ShiftArray``1(``0[],System.Int32)">
+            <summary>
+            Shifts array right (eg. [1,2,3,4,5] by 1 -> [5,1,2,3,4]).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array"></param>
+            <param name="number">number of positions to shift array</param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tonality.ComputeKeyProfileMatrix">
+            <summary>
+            Computes Krumhansl's key profile matrix using key profile vectors.
+            0-11 collumns of matrix corresponds to C Major, C# Major, ... , B Major key,
+            12-23 collumns of matrix corresponds to C Minor, C# Minor, ... , B Minor key.
+            (provided refference pitch 69 is A 440 Hz)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tonality.VectorDotProduct(System.Single[],System.Single[])">
+            <summary>
+            Scalar product of 2 vectors.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tonality.TonalityFromChromagram(System.Single[])">
+            <summary>
+            Computes tonality profile from given summed chromagram. (Format float[12])
+            </summary>
+            <param name="summedChromagram">Summed chromagram (in form of float[12]).</param>
+            <returns>Tonality profile (format float[24])</returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tonality.KeyFromTonality(System.Single[])">
+            <summary>
+            Computes key from given tonality.
+            (selects the biggest value).
+            </summary>
+            <param name="tonality">Tonality (in format float[24]).</param>
+            <returns>Key.</returns>
+        </member>
+        <member name="T:FeaturesExtraction.Tools">
+            <summary>
+            Static class to provide tools that helps with audio processing.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.Tools.ReadSignalFromMp3(System.String,System.Boolean)">
+            <summary>
+            Returns IEEE single floating point signal from input file.
+            If input is stereo, than optionaly converts to mono
+            </summary>
+            <param name="inFileInMp3"></param>
+            /// <param name="convertToMono"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tools.ReadSignalFromNAudioReader(NAudio.Wave.AudioFileReader,System.Boolean)">
+            <summary>
+            Returns IEEE single floating point signal from input file.
+            If input is stereo, than optionaly converts to mono 
+            </summary>
+            <param name="reader"></param>
+            <param name="convertToMono"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FeaturesExtraction.Tools.ClappingToBeats(System.Single[],System.String)">
+            <summary>
+            Creates signal with clap sound on specified time stamps.
+            </summary>
+            <param name="timeBeats">Time stamps.</param>
+            <param name="clapFile">mp3 file with clap sound</param>
+            <returns></returns>
+        </member>
+        <member name="T:FeaturesExtraction.SampleProvider">
+            <summary>
+            Auxiliary class to create ISampleProvider from samples and sample rate.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.SampleProvider.Read(System.Single[],System.Int32,System.Int32)">
+            <summary>
+            Fill the specified buffer with 32 bit floating point samples
+            </summary>
+            <param name="buffer">The buffer to fill with samples.</param>
+            <param name="offset">Offset into buffer</param>
+            <param name="count">The number of samples to read</param>
+            <returns>the number of samples written to the buffer.</returns>
+        </member>
+        <member name="T:FeaturesExtraction.RandomTools">
+            <summary>
+            Tools that helps with debugging and verifying result.
+            </summary>
+        </member>
+        <member name="M:FeaturesExtraction.RandomTools.PlaySampleProvider(NAudio.Wave.ISampleProvider)">
+            <summary>
+            Plays audio from SampleProvider. 
+            </summary>
+            <param name="signal"></param>
+        </member>
+        <member name="M:FeaturesExtraction.RandomTools.PlayMP3File(System.String)">
+            <summary>
+            Plays audio from MP3 file.
+            </summary>
+            <param name="inputFile">MP3 file.</param>
+        </member>
+    </members>
+</doc>
